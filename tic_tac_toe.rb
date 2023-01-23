@@ -1,4 +1,4 @@
-Class Player
+class Player
   attr_reader :name, :marker
 
   def initialize(name, marker)
@@ -12,7 +12,7 @@ Class Player
   end
 end
 
-Class Game
+class Game
   WIN_COMBINATIONS = [
     [1, 2, 3],
     [4, 5, 6],

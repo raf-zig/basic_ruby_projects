@@ -1,3 +1,4 @@
+#the game of tic-tac-toe (Object Oriented Programming)
 class Player
   attr_reader :name, :marker
 
@@ -6,9 +7,20 @@ class Player
     @marker = marker
   end
 
+  $available_positions  = []
+
   def player_choose
-    puts "#{name} choose the available positions"
-    chosen_position = gets.chomp.to_i
+    loop do
+      puts "#{name}, your marker #{marker}, choose the available positions:"
+      chosen_position = gets.chomp.to_i
+      
+      unless  $available_positions.include?(chosen_position)
+        $available_positions << chosen_position
+        return chosen_position
+      else  
+        puts "Invalid input."
+      end
+    end  
   end
 end
 
@@ -29,5 +41,64 @@ class Game
     @current_player = @players[0]
     @board = %w[1 2 3 4 5 6 7 8 9]
   end
-  
+
+  def play
+    puts "\nWelcome to Tic Tac Toe game!"
+    print_board
+    loop do
+      chosen_position = @current_player.player_choose
+      @board[chosen_position - 1] = @current_player.marker
+      print_board
+
+      if win? (@current_player)
+        puts "The winner is #{@current_player.name}!"
+        play_again?
+      elsif draw?
+        puts "It's a draw!"
+        play_again?
+      end
+      switch_player
+    end
+  end
+
+  def print_board
+    puts "#{@board[0]} | #{@board[1]} | #{@board[2]}"
+    puts "---------"
+    puts "#{@board[3]} | #{@board[4]} | #{@board[5]}"
+    puts "---------"
+    puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
+  end
+
+  def switch_player
+    @current_player = @current_player == @players[0] ? @players[1] : @players[0]
+  end
+
+  def win? (player)
+    WIN_COMBINATIONS.any? do |arr|
+      arr.all? do |i|
+        @board[i - 1] == player.marker
+      end
+    end
+  end
+
+  def draw?
+    @board.all? {|i| i == 'x' || i == '0'}
+  end
+
+  def play_again?
+    print "Play again? y/n:"
+    answer = gets.chomp.downcase 
+    if answer == 'n'
+      exit
+    elsif answer == 'y'
+      initialize
+      $available_positions  = []
+      play
+    else 
+      exit
+    end
+  end
 end
+
+game = Game.new
+game.play

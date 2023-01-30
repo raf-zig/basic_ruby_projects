@@ -15,10 +15,14 @@ class Player
       chosen_position = gets.chomp.to_i
       
       unless  $available_positions.include?(chosen_position)
-        $available_positions << chosen_position
-        return chosen_position
+        if (1..9).to_a.include? chosen_position
+          $available_positions << chosen_position
+          return chosen_position
+        else
+          puts "Invalid input."
+        end
       else  
-        puts "Invalid input."
+        puts "Duplicate  input."
       end
     end  
   end

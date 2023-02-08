@@ -5,8 +5,8 @@ def substring(str, dictionary)
   hash = {}
   dictionary.each do |word|
     if str.downcase.include?(word)
-      str2 = str.downcase.scan(word)
-      hash[word] =  str2.length
+      arr = str.downcase.scan(word)
+      hash[word] = arr.length
     end
   end
   print hash

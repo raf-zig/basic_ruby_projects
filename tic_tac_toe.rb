@@ -1,4 +1,4 @@
-#the game of tic-tac-toe (Object Oriented Programming)
+#The tic-tac-toe game on the command line where two human players can play against each other and the board is displayed in between turns.
 class Player
   attr_reader :name, :marker
 
@@ -13,7 +13,6 @@ class Player
     loop do
       puts "#{name}, your marker #{marker}, choose the available positions:"
       chosen_position = gets.chomp.to_i
-      
       unless  $available_positions.include?(chosen_position)
         if (1..9).to_a.include? chosen_position
           $available_positions << chosen_position
@@ -53,7 +52,6 @@ class Game
       chosen_position = @current_player.player_choose
       @board[chosen_position - 1] = @current_player.marker
       print_board
-
       if win? (@current_player)
         puts "The winner is #{@current_player.name}!"
         play_again?

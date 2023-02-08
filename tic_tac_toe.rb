@@ -52,7 +52,7 @@ class Game
       chosen_position = @current_player.player_choose
       @board[chosen_position - 1] = @current_player.marker
       print_board
-      if win? (@current_player)
+      if win?(@current_player)
         puts "The winner is #{@current_player.name}!"
         play_again?
       elsif draw?
@@ -75,7 +75,7 @@ class Game
     @current_player = @current_player == @players[0] ? @players[1] : @players[0]
   end
 
-  def win? (player)
+  def win?(player)
     WIN_COMBINATIONS.any? do |arr|
       arr.all? do |i|
         @board[i - 1] == player.marker

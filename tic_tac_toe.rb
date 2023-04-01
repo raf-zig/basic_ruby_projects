@@ -7,14 +7,14 @@ class Player
     @marker = marker
   end
 
-  $available_positions  = []
+  $available_positions = []
 
   def player_choose
     loop do
       puts "#{name}, your marker #{marker}, choose the available positions:"
       chosen_position = gets.chomp.to_i
-      unless  $available_positions.include?(chosen_position)
-        if (1..9).to_a.include? chosen_position
+      if !$available_positions.include?(chosen_position)
+        if (1..9).to_a.include?(chosen_position)
           $available_positions << chosen_position
           return chosen_position
         else
@@ -84,7 +84,7 @@ class Game
   end
 
   def draw?
-    @board.all? {|i| i == 'x' || i == '0'}
+    @board.all? { |i| i == 'x' || i == '0' }
   end
 
   def play_again?

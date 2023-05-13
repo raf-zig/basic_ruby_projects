@@ -13,15 +13,15 @@ class Player
     loop do
       puts "#{name}, your marker #{marker}, choose the available positions:"
       chosen_position = gets.chomp.to_i
-      if !$available_positions.include?(chosen_position)
+      if $available_positions.include?(chosen_position)
+        puts "Duplicate  input."
+      else  
         if (1..9).to_a.include?(chosen_position)
           $available_positions << chosen_position
           return chosen_position
         else
           puts "Invalid input."
         end
-      else  
-        puts "Duplicate  input."
       end
     end  
   end

@@ -3,9 +3,7 @@ def bubble_sort(arr)
   (arr.length - 1).times do
     index = 0
     (arr.length - 1).times do
-      if arr[index] > arr[index + 1]
-        arr[index], arr[index + 1] = arr[index + 1], arr[index] 
-      end
+      arr[index], arr[index + 1] = arr[index + 1], arr[index] if arr[index] > arr[index + 1]
       index += 1
     end
   end

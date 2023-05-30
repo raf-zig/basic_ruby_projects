@@ -90,7 +90,7 @@ class Game
   def play_again?
     print "Play again? y/n:"
     answer = gets.chomp.downcase 
-      case answer
+    case answer
     when 'n'
       exit
     when 'y'

@@ -1,4 +1,5 @@
 #The tic-tac-toe game on the command line where two human players can play against each other and the board is displayed in between turns.
+
 class Player
   attr_reader :name, :marker
 
@@ -13,15 +14,13 @@ class Player
     loop do
       puts "#{name}, your marker #{marker}, choose the available positions:"
       chosen_position = gets.chomp.to_i
-      if $available_positions.include?(chosen_position)
-        puts "Duplicate  input."
-      else  
-        if (1..9).to_a.include?(chosen_position)
-          $available_positions << chosen_position
-          return chosen_position
-        else
-          puts "Invalid input."
-        end
+      if $available_positions.include? chosen_position
+        puts 'Duplicate input'
+      elsif (1..9).to_a.include? chosen_position
+        $available_positions << chosen_position
+        return chosen_position
+      else
+        puts 'Invalid input'
       end
     end  
   end
@@ -37,7 +36,7 @@ class Game
     [1, 4, 7],
     [2, 5, 8],
     [3, 6, 9]
-  ]
+  ].freeze
 
   def initialize
     @players = [Player.new('Player_1', 'x'), Player.new('Player_2', '0')]
@@ -52,6 +51,7 @@ class Game
       chosen_position = @current_player.player_choose
       @board[chosen_position - 1] = @current_player.marker
       print_board
+      
       if win?(@current_player)
         puts "The winner is #{@current_player.name}!"
         play_again?
@@ -84,19 +84,20 @@ class Game
   end
 
   def draw?
-    @board.all? { |i| i == 'x' || i == '0' }
+    @board.all? { |i| %w[x 0].include?(i) }
   end
 
   def play_again?
     print "Play again? y/n:"
     answer = gets.chomp.downcase 
-    if answer == 'n'
+      case answer
+    when 'n'
       exit
-    elsif answer == 'y'
+    when 'y'
       initialize
-      $available_positions  = []
+      $available_positions = []
       play
-    else 
+    else
       exit
     end
   end
